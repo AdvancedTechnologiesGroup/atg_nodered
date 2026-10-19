@@ -8,6 +8,50 @@
         "env": []
     },
     {
+        "id": "f6f2187d.f17ca8",
+        "type": "tab",
+        "label": "basic elgato test",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "178ae2f718179ff0",
+        "type": "websocket-listener",
+        "path": "/streamdeck",
+        "wholemsg": "false"
+    },
+    {
+        "id": "a1a7e6db261a21aa",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "10.10.136.1",
+        "port": "1884",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": 4,
+        "keepalive": 60,
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
         "id": "436ba634b67adf05",
         "type": "inject",
         "z": "9d19b3b034bb393a",
@@ -30,6 +74,673 @@
         "payloadType": "date",
         "x": 480,
         "y": 300,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "b2dd5ff694f3d943",
+        "type": "websocket in",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "server": "178ae2f718179ff0",
+        "client": "",
+        "x": 100,
+        "y": 160,
+        "wires": [
+            [
+                "f06fbe0b41279ca4"
+            ]
+        ]
+    },
+    {
+        "id": "41a1f7b8fa39faf9",
+        "type": "websocket out",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "server": "178ae2f718179ff0",
+        "client": "",
+        "x": 1510,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "7e0cf29c69f6fe7f",
+        "type": "change",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "context",
+                "pt": "msg",
+                "to": "payload.context",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 480,
+        "y": 160,
+        "wires": [
+            [
+                "8374f77ccada314c",
+                "640d90bcc7c98309",
+                "387597cce4fdcf59"
+            ]
+        ]
+    },
+    {
+        "id": "f06fbe0b41279ca4",
+        "type": "json",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 310,
+        "y": 160,
+        "wires": [
+            [
+                "7e0cf29c69f6fe7f"
+            ]
+        ]
+    },
+    {
+        "id": "285f834b408490d2",
+        "type": "switch",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "property": "payload.event",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "keyUp",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 870,
+        "y": 100,
+        "wires": [
+            [
+                "ef3d869a817940d0"
+            ]
+        ]
+    },
+    {
+        "id": "59f3b0b664c4857a",
+        "type": "change",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\t   \"event\":\"setImage\",\t   \"context\":context,\t   \"payload\":{\t       \"image\":image\t   }\t}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1240,
+        "y": 100,
+        "wires": [
+            [
+                "41a1f7b8fa39faf9"
+            ]
+        ]
+    },
+    {
+        "id": "ef3d869a817940d0",
+        "type": "jimp-image",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "data": "https://picsum.photos/72",
+        "dataType": "str",
+        "ret": "b64",
+        "parameter1": "",
+        "parameter1Type": "msg",
+        "parameter2": "",
+        "parameter2Type": "msg",
+        "parameter3": "",
+        "parameter3Type": "msg",
+        "parameter4": "",
+        "parameter4Type": "msg",
+        "parameter5": "",
+        "parameter5Type": "msg",
+        "parameter6": "",
+        "parameter6Type": "msg",
+        "parameter7": "",
+        "parameter7Type": "msg",
+        "parameter8": "",
+        "parameter8Type": "msg",
+        "sendProperty": "image",
+        "sendPropertyType": "msg",
+        "parameterCount": 0,
+        "jimpFunction": "none",
+        "selectedJimpFunction": {
+            "name": "none",
+            "fn": "none",
+            "description": "Just loads the image.",
+            "parameters": []
+        },
+        "x": 1010,
+        "y": 100,
+        "wires": [
+            [
+                "59f3b0b664c4857a"
+            ]
+        ]
+    },
+    {
+        "id": "72b7f1b633c7f04a",
+        "type": "change",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\t   \"event\":\"setFeedback\",\t   \"context\":context,\t   \"payload\":{\t    \"value\":$globalContext(\"anglesetreal\"),\t    \"title\": \"Angle\"\t   }\t}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1240,
+        "y": 180,
+        "wires": [
+            [
+                "41a1f7b8fa39faf9"
+            ]
+        ]
+    },
+    {
+        "id": "38ec377f59d21b23",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "function 1",
+        "func": "var count = global.get(\"angleset\");\n\n// 2. Add \nif (msg.payload.payload.ticks != null)\n    count = count + msg.payload.payload.ticks;\nif (isNaN(count))\n    count = 0;\n\nif (count <= 0)\n    count = 0;\n\nif (count >= 225)\n    count = 225;\n\n// 3. Save it back to the global variable\nglobal.set(\"angleset\", count);\nglobal.set(\"anglesetreal\", count * 2);\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1020,
+        "y": 180,
+        "wires": [
+            [
+                "72b7f1b633c7f04a",
+                "b4d091357e7912aa"
+            ]
+        ]
+    },
+    {
+        "id": "d20a309cf9c6fae6",
+        "type": "inject",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "props": [
+            {
+                "p": "var",
+                "v": "0",
+                "vt": "num"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 510,
+        "y": 500,
+        "wires": [
+            [
+                "aa383b47d9aa059d"
+            ]
+        ]
+    },
+    {
+        "id": "aa383b47d9aa059d",
+        "type": "change",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "var",
+                "pt": "global",
+                "to": "var",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 650,
+        "y": 500,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "8d16e66826750557",
+        "type": "mqtt out",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "topic": "antenna 1 angle",
+        "qos": "2",
+        "retain": "true",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "a1a7e6db261a21aa",
+        "x": 1500,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "8bb9c9634149379c",
+        "type": "template",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "plain",
+        "template": "rotctl -m 603 -r /dev/ttyUSB0 -s 9600 P  {{global.var}} 0.0",
+        "output": "str",
+        "x": 440,
+        "y": 620,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "b4d091357e7912aa",
+        "type": "change",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "'rotctl -m 603 -r /dev/ttyUSB0 -s 9600 P  ' & $globalContext(\"angleset\") & ' 0.0'",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1240,
+        "y": 260,
+        "wires": [
+            [
+                "8d16e66826750557"
+            ]
+        ]
+    },
+    {
+        "id": "8374f77ccada314c",
+        "type": "switch",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "property": "payload.payload.settings.id",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "knob1",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 690,
+        "y": 180,
+        "wires": [
+            [
+                "1dc928f58be2cceb"
+            ]
+        ]
+    },
+    {
+        "id": "1dc928f58be2cceb",
+        "type": "switch",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "property": "payload.event",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "dialRotate",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 870,
+        "y": 180,
+        "wires": [
+            [
+                "38ec377f59d21b23"
+            ]
+        ]
+    },
+    {
+        "id": "222447e88f3a7c7e",
+        "type": "change",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "'rotctl -m 603 -r /dev/ttyUSB0 -s 9600 p'",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "waiting",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1060,
+        "y": 440,
+        "wires": [
+            [
+                "8d16e66826750557",
+                "3037705268fb7719"
+            ]
+        ]
+    },
+    {
+        "id": "640d90bcc7c98309",
+        "type": "switch",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "property": "payload.payload.settings.id",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "checkangle",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 690,
+        "y": 260,
+        "wires": [
+            [
+                "47ef763f8cd52f0f"
+            ]
+        ]
+    },
+    {
+        "id": "387597cce4fdcf59",
+        "type": "switch",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "property": "payload.payload.settings.id",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "button1",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 690,
+        "y": 100,
+        "wires": [
+            [
+                "285f834b408490d2"
+            ]
+        ]
+    },
+    {
+        "id": "47ef763f8cd52f0f",
+        "type": "switch",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "property": "payload.event",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "keyUp",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 870,
+        "y": 260,
+        "wires": [
+            [
+                "222447e88f3a7c7e"
+            ]
+        ]
+    },
+    {
+        "id": "543470e599346705",
+        "type": "mqtt in",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "topic": "antenna 1 angle return",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "a1a7e6db261a21aa",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 660,
+        "y": 620,
+        "wires": [
+            [
+                "448ed81ac329a4f5"
+            ]
+        ]
+    },
+    {
+        "id": "f3c7e31aebd646b0",
+        "type": "websocket out",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "server": "178ae2f718179ff0",
+        "client": "",
+        "x": 1690,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "1331ce24e783e9e3",
+        "type": "change",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\t   \"event\":\"setTitle\",\t   \"context\":context,\t   \"payload\":{\t       \"title\":$globalContext(\"anglereturned\")\t   }\t}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1460,
+        "y": 600,
+        "wires": [
+            [
+                "f3c7e31aebd646b0",
+                "a92c526a09a0b020"
+            ]
+        ]
+    },
+    {
+        "id": "787a9b96f659394c",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "function 2",
+        "func": "var returnedangle = msg.payload\nvar returnedangle = returnedangle.replace(/\\n[\\s\\S]*/, '');\nvar returnedAngle = String(Number(returnedangle)*2);\nglobal.set(\"anglereturned\", returnedAngle);\nmsg.topic =\"done\";\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1080,
+        "y": 620,
+        "wires": [
+            [
+                "3037705268fb7719"
+            ]
+        ]
+    },
+    {
+        "id": "448ed81ac329a4f5",
+        "type": "switch",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "neq",
+                "v": "",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 890,
+        "y": 620,
+        "wires": [
+            [
+                "787a9b96f659394c"
+            ]
+        ]
+    },
+    {
+        "id": "a92c526a09a0b020",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "name": "debug 20",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1660,
+        "y": 640,
+        "wires": []
+    },
+    {
+        "id": "3037705268fb7719",
+        "type": "join-wait",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "paths": [
+            "waiting",
+            "done"
+        ],
+        "pathsToExpire": [],
+        "useRegex": false,
+        "warnUnmatched": true,
+        "pathTopic": "topic",
+        "pathTopicType": "msg",
+        "correlationTopic": "",
+        "correlationTopicType": "undefined",
+        "timeout": 15000,
+        "timeoutUnits": 1,
+        "exactOrder": "true",
+        "firstMsg": "true",
+        "mapPayload": "false",
+        "disableComplete": false,
+        "persistOnRestart": true,
+        "persistStore": "",
+        "x": 1260,
+        "y": 620,
+        "wires": [
+            [
+                "1331ce24e783e9e3"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "e03008f779c1a0fb",
+        "type": "inject",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 1220,
+        "y": 340,
         "wires": [
             []
         ]
